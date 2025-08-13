@@ -2,10 +2,6 @@ const users = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-function getIndex(req, res) {
-  res.json({ message: "hello" });
-}
-
 async function postSignup(req, res) {
   const { name, email, password } = req.body;
 
@@ -39,7 +35,6 @@ async function postLogin(req, res) {
 }
 
 module.exports = {
-  getIndex,
   postSignup,
   postLogin,
 };
