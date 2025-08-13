@@ -1,14 +1,14 @@
 const { Router } = require("express");
 const {
   getIndex,
-  createUser,
+  postSignup,
   postLogin,
 } = require("../controllers/indexController");
 
 const indexRouter = Router();
 
 indexRouter.get("/", getIndex);
-indexRouter.post("/signup", createUser);
+indexRouter.post("/signup", postSignup);
 indexRouter.post("/login", postLogin);
 
 module.exports = indexRouter;
