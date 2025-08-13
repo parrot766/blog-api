@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const indexRouter = require("./routes/indexRouter");
+const authRouter = require("./routes/authRouter");
 const postsRouter = require("./routes/postsRouter");
 const commentsRouter = require("./routes/commentsRouter");
 const usersRouter = require("./routes/usersRouter");
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", indexRouter);
+app.use("/", authRouter);
 app.use("/posts", postsRouter);
 app.use("/posts/:postUuid/comments", commentsRouter);
 app.use("/user", usersRouter);
