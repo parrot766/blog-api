@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", authRouter);
+app.use("/auth", authRouter);
 app.use("/posts", postsRouter);
 app.use("/posts/:postUuid/comments", commentsRouter);
 app.use("/user", usersRouter);
