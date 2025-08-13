@@ -4,13 +4,7 @@ const jwt = require("jsonwebtoken");
 async function getPosts(req, res) {
   const allPosts = await posts.getAllPublishedPosts();
 
-  jwt.verify(req.token, process.env.JWT_SECRET, (err) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({ posts: allPosts });
-    }
-  });
+  res.json({ posts: allPosts });
 }
 
 async function createPost(req, res) {
