@@ -6,7 +6,7 @@ function getIndex(req, res) {
   res.json({ message: "hello" });
 }
 
-async function createUser(req, res) {
+async function postSignup(req, res) {
   const { name, email, password } = req.body;
 
   const userExists =
@@ -40,6 +40,6 @@ async function postLogin(req, res) {
 
 module.exports = {
   getIndex,
-  createUser,
+  postSignup,
   postLogin,
 };
