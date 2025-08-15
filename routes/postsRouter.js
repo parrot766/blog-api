@@ -12,7 +12,7 @@ const postsRouter = Router();
 
 postsRouter.get("/", getPosts);
 postsRouter.post("/", verifyToken, createPost);
-postsRouter.get("/:postUuid", verifyToken, getPostByUuid);
+postsRouter.get("/:postUuid", getPostByUuid);
 postsRouter.put("/:postUuid", verifyToken, putPost);
 postsRouter.delete("/:postUuid", verifyToken, deletePost);
 
