@@ -25,18 +25,12 @@ async function createPost(req, res) {
 async function getPostByUuid(req, res) {
   const { postUuid } = req.params;
 
-  jwt.verify(req.token, process.env.JWT_SECRET, async (err) => {
-    if (err) {
-      res.status(401).json({ error: "Unauthorized" });
-    } else {
-      const post = await posts.getPostByUuid(postUuid);
-      if (!post) {
-        return res.status(404).json({ error: "Post not found" });
-      }
+  const post = await posts.getPostByUuid(postUuid);
+  if (!post) {
+    return res.status(404).json({ error: "Post not found" });
+  }
 
-      res.json({ post });
-    }
-  });
+  res.json({ post });
 }
 
 async function putPost(req, res) {
