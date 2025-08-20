@@ -5,20 +5,14 @@ const jwt = require("jsonwebtoken");
 async function getComments(req, res) {
   const { postUuid } = req.params;
 
-  jwt.verify(req.token, process.env.JWT_SECRET, async (err) => {
-    if (err) {
-      res.status(401).json({ error: "Unauthorized" });
-    } else {
-      const post = await posts.getPostByUuid(postUuid);
-      if (!post) {
-        return res.status(404).json({ error: "Post not found" });
-      }
+  const post = await posts.getPostByUuid(postUuid);
+  if (!post) {
+    return res.status(404).json({ error: "Post not found" });
+  }
 
-      const postComments = await comments.getComments(post.id);
+  const postComments = await comments.getComments(post.id);
 
-      res.json({ comments: postComments });
-    }
-  });
+  res.json({ comments: postComments });
 }
 
 async function postComment(req, res) {
