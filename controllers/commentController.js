@@ -28,9 +28,13 @@ async function postComment(req, res) {
         return res.status(404).json({ error: "Post not found" });
       }
 
-      await comments.createComment(content, data.user.id, post.id);
+      const comment = await comments.createComment(
+        content,
+        data.user.id,
+        post.id,
+      );
 
-      return res.json({ message: "comment created successfully" });
+      return res.json({ comment });
     }
   });
 }
