@@ -9,7 +9,7 @@ const {
 
 const commentsRouter = Router({ mergeParams: true });
 
-commentsRouter.get("/", verifyToken, getComments);
+commentsRouter.get("/", getComments);
 commentsRouter.post("/", verifyToken, postComment);
 commentsRouter.put("/:commentUuid", verifyToken, putComment);
 commentsRouter.delete("/:commentUuid", verifyToken, deleteComment);
