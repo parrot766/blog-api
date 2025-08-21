@@ -43,13 +43,21 @@ async function putComment(req, res) {
   const { commentUuid } = req.params;
   const { newContent } = req.body;
 
-  jwt.verify(req.token, process.env.JWT_SECRET, async (err) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, data) => {
     if (err) {
       res.status(401).json({ error: "Unauthorized" });
     } else {
       const comment = await comments.getCommentByUuid(commentUuid);
       if (!comment) {
         return res.status(404).json({ error: "Comment not found" });
+      }
+
+      const username = data.user.name;
+      const commentAuthor = comment.author.name;
+      const userRole = data.user.role;
+
+      if (commentAuthor !== username || userRole !== "admin") {
+        return res.status(403).json({ error: "Forbidden" });
       }
 
       const updatedComment = await comments.updateComment(
@@ -65,13 +73,21 @@ async function putComment(req, res) {
 async function deleteComment(req, res) {
   const { commentUuid } = req.params;
 
-  jwt.verify(req.token, process.env.JWT_SECRET, async (err) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, data) => {
     if (err) {
       res.status(401).json({ error: "Unauthorized" });
     } else {
       const comment = await comments.getCommentByUuid(commentUuid);
       if (!comment) {
         return res.status(404).json({ error: "Comment not found" });
+      }
+
+      const username = data.user.name;
+      const commentAuthor = comment.author.name;
+      const userRole = data.user.role;
+
+      if (commentAuthor !== username || userRole !== "admin") {
+        return res.status(403).json({ error: "Forbidden" });
       }
 
       await comments.deleteComment(commentUuid);
