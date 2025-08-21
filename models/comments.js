@@ -41,6 +41,17 @@ async function createComment(content, authorId, postId) {
       content,
       authorId,
     },
+    select: {
+      uuid: true,
+      content: true,
+      createdAt: true,
+      updatedAt: true,
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 }
 
