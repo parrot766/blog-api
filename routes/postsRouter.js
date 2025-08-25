@@ -10,7 +10,7 @@ const {
 
 const postsRouter = Router();
 
-postsRouter.get("/", getPosts);
+postsRouter.get("/", verifyToken, getPosts);
 postsRouter.post("/", verifyToken, createPost);
 postsRouter.get("/:postUuid", getPostByUuid);
 postsRouter.put("/:postUuid", verifyToken, putPost);
