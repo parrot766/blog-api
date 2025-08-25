@@ -2,14 +2,20 @@ const posts = require("../models/posts");
 const jwt = require("jsonwebtoken");
 
 async function getPosts(req, res) {
-  const allPosts = await posts.getAllPublishedPosts();
+  const allPosts = await posts.getAllPosts();
+  const publishedPosts = allPosts.filter((post) => post.isPublished);
 
-  res.json({ posts: allPosts });
+  jwt.verify(req.token, process.env.JWT_SECRET, (err, data) => {
+    if (err || data.user.role !== "admin") {
+      return res.json({ posts: publishedPosts });
+    } else {
+      return res.json({ posts: allPosts });
+    }
+  });
 }
 
 async function createPost(req, res) {
-  const { title, content, published } = req.body;
-  const isPublished = published === "true";
+  const { title, content, isPublished } = req.body;
 
   jwt.verify(req.token, process.env.JWT_SECRET, (err, data) => {
     if (err) {
