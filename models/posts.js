@@ -19,6 +19,25 @@ async function getAllPublishedPosts() {
   });
 }
 
+async function getAllPosts() {
+  return await prisma.post.findMany({
+    select: {
+      uuid: true,
+      title: true,
+      content: true,
+      createdAt: true,
+      updatedAt: true,
+      isPublished: true,
+      author: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+}
+
 async function createPost(title, content, isPublished, authorId) {
   return await prisma.post.create({
     data: {
@@ -85,4 +104,5 @@ module.exports = {
   getPostByUuid,
   updatePost,
   deletePost,
+  getAllPosts,
 };
