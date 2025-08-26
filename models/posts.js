@@ -59,6 +59,7 @@ async function getPostByUuid(postUuid) {
       content: true,
       createdAt: true,
       updatedAt: true,
+      isPublished: true,
       author: {
         select: {
           name: true,
@@ -83,6 +84,7 @@ async function updatePost(postUuid, title, content, isPublished) {
       content: true,
       createdAt: true,
       updatedAt: true,
+      isPublished: true,
       author: {
         select: {
           name: true,
