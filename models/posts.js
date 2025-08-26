@@ -69,12 +69,13 @@ async function getPostByUuid(postUuid) {
   });
 }
 
-async function updatePost(postUuid, title, content) {
+async function updatePost(postUuid, title, content, isPublished) {
   return await prisma.post.update({
     where: { uuid: postUuid },
     data: {
       title,
       content,
+      isPublished,
     },
     select: {
       uuid: true,
