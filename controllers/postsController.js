@@ -41,7 +41,7 @@ async function getPostByUuid(req, res) {
 
 async function putPost(req, res) {
   const { postUuid } = req.params;
-  const { title, content } = req.body;
+  const { title, content, isPublished } = req.body;
 
   jwt.verify(req.token, process.env.JWT_SECRET, async (err) => {
     if (err) {
@@ -52,7 +52,12 @@ async function putPost(req, res) {
         return res.status(404).json({ error: "Not found" });
       }
 
-      const updatedPost = await posts.updatePost(postUuid, title, content);
+      const updatedPost = await posts.updatePost(
+        postUuid,
+        title,
+        content,
+        isPublished,
+      );
 
       res.json({ post: updatedPost });
     }
