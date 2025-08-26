@@ -54,9 +54,8 @@ async function putComment(req, res) {
 
       const username = data.user.name;
       const commentAuthor = comment.author.name;
-      const userRole = data.user.role;
 
-      if (commentAuthor !== username || userRole !== "admin") {
+      if (commentAuthor !== username) {
         return res.status(403).json({ error: "Forbidden" });
       }
 
