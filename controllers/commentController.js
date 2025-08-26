@@ -86,7 +86,7 @@ async function deleteComment(req, res) {
       const commentAuthor = comment.author.name;
       const userRole = data.user.role;
 
-      if (commentAuthor !== username || userRole !== "admin") {
+      if (commentAuthor !== username && userRole !== "admin") {
         return res.status(403).json({ error: "Forbidden" });
       }
 
