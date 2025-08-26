@@ -29,7 +29,13 @@ async function postLogin(req, res) {
     return res.status(401).json({ error: "invalid credentials" });
   }
 
-  jwt.sign({ user }, process.env.JWT_SECRET, (err, token) => {
+  const payload = {
+    id: user.id,
+    name: user.name,
+    role: user.role,
+  };
+
+  jwt.sign({ user: payload }, process.env.JWT_SECRET, (err, token) => {
     res.json({ token });
   });
 }
